@@ -1,8 +1,13 @@
-def num(number,max):
-    if a=="max":
-        max=number[0]
-        for i in numbers:
-            if max >i:
-                max=i
-        return max
-print(num([1,2,5,8,9,30]),("max"))
+import tkinter as tk
+def draw(canvas):
+    pass
+def makecanvas(w,h):
+    root=tk.Tk()
+    canvas=tk.Canvas(root,width=w,height=h)
+    canvas.configure(bd=1)
+    canvas.create_oval(10, 50, 110, 100)
+    # canvas.create_rectangle(30,10,120, 80)
+    canvas.pack()
+    draw(canvas)
+    root.mainloop()
+print(makecanvas(100,100))
