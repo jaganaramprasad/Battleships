@@ -33,8 +33,6 @@ def makeModel(data):
     data["computerboard"]=emptyGrid(data["rows"],data["cols"])
     data["computerboard"] =addShips(data["computerboard"],5)
     data["numberofships"]=5
-    data["userboard"]=createShip()
-    data["computerboard"]=createShip()
     return data
 
 
