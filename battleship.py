@@ -135,7 +135,16 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; 2D list of ints ; boo
 Returns: None
 '''
 def drawGrid(data, canvas, grid, showShips):
-    return
+    for row in range(data["rows"]):
+         for cols in range(data["columns"]):
+             if grid[row][cols]==SHIP_UNCLICKED:
+                 
+                canvas.create_rectangle(cols*data["cellsize"],row*data["cellsize"],data["cellsize"]+cols*data["cellsize"], row*data["cellsize"]+data["cellsize"], fill="yellow")
+                
+             else:
+                canvas.create_rectangle(cols*data["cellsize"],row*data["cellsize"],data["cellsize"]+cols*data["cellsize"], row*data["cellsize"]+data["cellsize"], fill="blue")
+                
+    return 
 
 
 ### WEEK 2 ###
@@ -307,5 +316,6 @@ def runSimulation(w, h):
 if __name__ == "__main__":
 
     ## Finally, run the simulation to test it manually ##
-    # runSimulation(500, 500)
-    test.testMakeModel()
+    runSimulation(500, 500)
+    # drawGrid()
+    test.testDrawGrid()
