@@ -29,12 +29,10 @@ def makeModel(data):
     data["cols"]=10
     data["boardsize"]=500
     data["celsize"]=50
-    data["userboard"]=emptyGrid(data["rows"],data["cols"])
+    data["userboard"]=test.testGrid()
     data["computerboard"]=emptyGrid(data["rows"],data["cols"])
-    addShips(data["computerboard"],5)
+    data["computerboard"]=addShips(data["computerboard"],5)
     data["numberofships"]=5
-    data["userboard"]=createShip()
-    data["computerboard"]=createShip()
     return data
 
 
@@ -140,7 +138,7 @@ def drawGrid(data, canvas, grid, showShips):
     for row in range(data["rows"]):
          for cols in range(data["cols"]):
             if grid[row][cols]==SHIP_UNCLICKED:
-                canvas.create_rectangle(cols*data["celsize"],row*data["celsize"],(cols+1)*data["cellsize"], (row+1)*data["cellsize"], fill="yellow")
+                canvas.create_rectangle(cols*data["celsize"],row*data["celsize"],(cols+1)*data["celsize"], (row+1)*data["celsize"], fill="yellow")
                 
             else:
                 canvas.create_rectangle(cols*data["celsize"],row*data["celsize"],(cols+1)*data["celsize"], (row+1)*data["celsize"], fill="blue")
