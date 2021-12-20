@@ -29,12 +29,10 @@ def makeModel(data):
     data["cols"]=10
     data["boardsize"]=500
     data["celsize"]=50
-    data["userboard"]=emptyGrid(data["rows"],data["cols"])
+    data["userboard"]=test.testGrid()
     data["computerboard"]=emptyGrid(data["rows"],data["cols"])
-    addShips(data["computerboard"],5)
     data["numberofships"]=5
-    data["userboard"]=createShip()
-    data["computerboard"]=createShip()
+    data["computerboard"]=addShips(data["computerboard"],data["numberofships"])
     return data
 
 
@@ -46,6 +44,8 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; Tkinter canvas
 Returns: None
 '''
 def makeView(data, userCanvas, compCanvas):
+    drawGrid(data,userCanvas,data["userboard"],True)
+    drawGrid(data,compCanvas,data["computerboard"],False)
     return
 
 
@@ -105,8 +105,8 @@ Parameters: 2D list of ints ; 2D list of ints
 Returns: bool
 '''
 def checkShip(grid, ship):
-    for i in range(len(ship)): #i=0,1,2
-           if grid[ship[i][0]][ship[i][1]]!=EMPTY_UNCLICKED: #[0][0] with refernce terminal 
+    for i in ship: #i=0,1,2
+           if grid[i[0]][i[1]]!=EMPTY_UNCLICKED: #[0][0] with refernce terminal 
                return False
     return True
     
@@ -136,14 +136,12 @@ Returns: None
 '''
 def drawGrid(data, canvas, grid, showShips):
     for row in range(data["rows"]):
-         for cols in range(data["columns"]):
-             if grid[row][cols]==SHIP_UNCLICKED:
-                 
-                canvas.create_rectangle(cols*data["cellsize"],row*data["cellsize"],data["cellsize"]+cols*data["cellsize"], row*data["cellsize"]+data["cellsize"], fill="yellow")
-                
-             else:
-                canvas.create_rectangle(cols*data["cellsize"],row*data["cellsize"],data["cellsize"]+cols*data["cellsize"], row*data["cellsize"]+data["cellsize"], fill="blue")
-                
+        for cols in range(data["cols"]):
+            if grid[row][cols]==SHIP_UNCLICKED:
+                canvas.create_rectangle(cols*data["celsize"],row*data["celsize"],(cols+1)*data["celsize"], (row+1)*data["celsize"], fill="yellow")
+            else:
+                canvas.create_rectangle(cols*data["celsize"],row*data["celsize"],(cols+1)*data["celsize"], (row+1)*data["celsize"], fill="blue")
+ 
     return 
 
 
@@ -317,5 +315,4 @@ if __name__ == "__main__":
 
     ## Finally, run the simulation to test it manually ##
     runSimulation(500, 500)
-    # drawGrid()
-    test.testDrawGrid()
+    #  test.testdrawGrid()
