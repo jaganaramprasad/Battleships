@@ -31,7 +31,7 @@ def makeModel(data):
     data["celsize"]=50
     data["userboard"]=emptyGrid(data["rows"],data["cols"])
     data["computerboard"]=emptyGrid(data["rows"],data["cols"])
-    addShips(data["computerboard"],5)
+    data["computerboard"] =addShips(data["computerboard"],5)
     data["numberofships"]=5
     data["userboard"]=createShip()
     data["computerboard"]=createShip()
@@ -110,8 +110,6 @@ def checkShip(grid, ship):
                return False
     return True
     
-
-
 '''
 addShips(grid, numShips)
 Parameters: 2D list of ints ; int
@@ -135,7 +133,14 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; 2D list of ints ; boo
 Returns: None
 '''
 def drawGrid(data, canvas, grid, showShips):
-    return
+    canvas=emptyGrid("rows","cols")
+    celsize=50
+    for i in canvas:
+        if grid[i][0][i][1]!=SHIP_UNCLICKED:
+            canvas.create_rectangle(10, 50, 110, 100,fill="yellow")
+        else:
+            canvas.create_rectangle(10, 50, 110, 100,fill="blue")
+    return  canvas
 
 
 ### WEEK 2 ###
