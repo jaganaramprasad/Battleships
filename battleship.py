@@ -162,10 +162,6 @@ def isVertical(ship):
     return False
     
 
-        
-
-
-    return
 
 
 '''
