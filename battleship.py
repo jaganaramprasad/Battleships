@@ -155,7 +155,7 @@ Returns: bool
 '''
 def isVertical(ship):
     row=0
-    if ship[row][1]==ship[row+1][1]==ship[row+2][1]:
+    if ship[row][1]==ship[row+1][1]==ship[row+2][1]: #[0,1][1,1][2,1]
         ship.sort()
         if ship[row+1][0]-ship[row][0]==1 and ship[row+2][0]-ship[row+1][0]==1:
             return True
