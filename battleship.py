@@ -185,6 +185,13 @@ Parameters: dict mapping strs to values ; mouse event object
 Returns: list of ints
 '''
 def getClickedCell(data, event):
+    for i in range(data["rows"]):
+        for j in range(data["cols"]):
+            if j*data["celsize"]<=event.x and i*data["celsize"]<=event.y and (j+1)*data["celsize"]>=event.x and (i+1)*data["celsize"]>=event.y:
+             return [i,j]   
+
+ #50<=140 and 50<=320 and 400>=140 and 400>=320
+
     return
 
 
@@ -330,4 +337,4 @@ if __name__ == "__main__":
     ## Finally, run the simulation to test it manually ##
     # runSimulation(500, 500)
     # drawGrid()
-    test.testIsHorizontal()
+    test.testGetClickedCell()
