@@ -25,7 +25,17 @@ Parameters: dict mapping strs to values
 Returns: None
 '''
 def makeModel(data):
-    return
+    data["rows"]=10
+    data["cols"]=10
+    data["boardsize"]=500
+    data["celsize"]=50
+    data["userboard"]=test.testGrid()
+    data["computerboard"]=emptyGrid(data["rows"],data["cols"])
+    data["computerboard"]=addShips(data["computerboard"],5)
+    data["numberofships"]=5
+    return data
+
+
 
 
 '''
@@ -34,6 +44,8 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; Tkinter canvas
 Returns: None
 '''
 def makeView(data, userCanvas, compCanvas):
+    drawGrid(data,userCanvas,data["userboard"],True)
+    drawGrid(data,compCanvas,data["computerboard"],False)
     return
 
 
@@ -62,7 +74,13 @@ Parameters: int ; int
 Returns: 2D list of ints
 '''
 def emptyGrid(rows, cols):
-    return
+    matrix=[]
+    for i in range(rows):         
+        a =[]
+        for j in range(cols):     
+            a.append(EMPTY_UNCLICKED)
+        matrix.append(a)
+    return matrix
 
 
 '''
@@ -71,7 +89,14 @@ Parameters: no parameters
 Returns: 2D list of ints
 '''
 def createShip():
-    return
+    r=random.randint(1,8) #5
+    c=random.randint(1,8) #3
+    z=random.randint(0,1) #0
+    if z==0:
+        ship=[[r-1,c],[r,c],[r+1,c]] #[4,3][5,3][6,3]
+    else:
+        ship=[[r,c-1],[r,c],[r,c+1]] #[5,2][5,3][5,4]
+    return ship
 
 
 '''
@@ -80,7 +105,11 @@ Parameters: 2D list of ints ; 2D list of ints
 Returns: bool
 '''
 def checkShip(grid, ship):
-    return
+    for i in range(len(ship)): #i=0,1,2
+           if grid[ship[i][0]][ship[i][1]]!=EMPTY_UNCLICKED: #[0][0] with refernce terminal 
+               return False
+    return True
+    
 
 
 '''
@@ -89,7 +118,15 @@ Parameters: 2D list of ints ; int
 Returns: 2D list of ints
 '''
 def addShips(grid, numShips):
-    return
+    row=0
+    while row<numShips:
+        s=createShip() #[[1,2][2,3][4,5]]
+        m=checkShip(grid,s) #
+        if m==True:
+            for i in s:#[1,2]
+                grid[i[0]][i[1]]=SHIP_UNCLICKED
+            row=row+1
+    return grid
 
 
 '''
@@ -98,7 +135,15 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; 2D list of ints ; boo
 Returns: None
 '''
 def drawGrid(data, canvas, grid, showShips):
-    return
+    for row in range(data["rows"]):
+         for cols in range(data["cols"]):
+            if grid[row][cols]==SHIP_UNCLICKED:
+                canvas.create_rectangle(cols*data["celsize"],row*data["celsize"],(cols+1)*data["celsize"], (row+1)*data["celsize"], fill="yellow")
+                
+            else:
+                canvas.create_rectangle(cols*data["celsize"],row*data["celsize"],(cols+1)*data["celsize"], (row+1)*data["celsize"], fill="blue")
+                
+    return 
 
 
 ### WEEK 2 ###
@@ -109,7 +154,14 @@ Parameters: 2D list of ints
 Returns: bool
 '''
 def isVertical(ship):
-    return
+    row=0
+    if ship[row][1]==ship[row+1][1]==ship[row+2][1]:
+        ship.sort()
+        if ship[row+1][0]-ship[row][0]==1 and ship[row+2][0]-ship[row+1][0]==1:
+            return True
+    return False
+    
+
 
 
 '''
@@ -118,7 +170,13 @@ Parameters: 2D list of ints
 Returns: bool
 '''
 def isHorizontal(ship):
-    return
+    row=0
+    if ship[row][0]==ship[row+1][0]==ship[row+2][0]:
+        ship.sort()
+        if ship[row+1][1]-ship[row][1]==1 and ship[row+2][1]-ship[row+1][1]==1:
+            return True
+    return False
+
 
 
 '''
@@ -271,3 +329,5 @@ if __name__ == "__main__":
 
     ## Finally, run the simulation to test it manually ##
     # runSimulation(500, 500)
+    # drawGrid()
+    test.testIsHorizontal()
