@@ -33,7 +33,8 @@ def makeModel(data):
     data["computerboard"]=emptyGrid(data["rows"],data["cols"])
     data["computerboard"]=addShips(data["computerboard"],5)
     data["numberofships"]=5 
-    data["temporyships"]=test.testShip()
+    data["temporyships"]=[]
+    data["userships"]=0
     return data
 
 
@@ -246,6 +247,14 @@ Parameters: dict mapping strs to values ; int ; int
 Returns: None
 '''
 def clickUserBoard(data, row, col):
+    r=data["userboard"]
+    if [row,col] in r or data["userships"]==5:
+        return
+    data["temporyship"].append([row,col])
+    if len(data["temporyship"])==3:
+        placeShip(data)
+    if data["userships"]==5:
+        print("You can start the game")
     return
 
 
