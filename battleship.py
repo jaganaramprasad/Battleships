@@ -67,7 +67,12 @@ Parameters: dict mapping strs to values ; mouse event object ; 2D list of ints
 Returns: None
 '''
 def mousePressed(data, event, board):
+    row,col=getClickedCell(data, event)
+    if board=="user":
+        clickUserBoard(data, row, col)
+
     pass
+
 
 #### WEEK 1 ####
 
@@ -235,6 +240,7 @@ def placeShip(data):
     if shipIsValid(g, data["temporyships"])==True:
         for i in data["temporyships"]:
             g[i[0]][i[1]]=SHIP_UNCLICKED
+        data["userships"]=data["userships"]+1
     else:
         print("Ship is not Valid")
     data["temporyships"]=[]
@@ -250,8 +256,8 @@ def clickUserBoard(data, row, col):
     r=data["userboard"]
     if [row,col] in r or data["userships"]==5:
         return
-    data["temporyship"].append([row,col])
-    if len(data["temporyship"])==3:
+    data["temporyships"].append([row,col])
+    if len(data["temporyships"])==3:
         placeShip(data)
     if data["userships"]==5:
         print("You can start the game")
@@ -362,6 +368,6 @@ def runSimulation(w, h):
 if __name__ == "__main__":
 
     ## Finally, run the simulation to test it manually ##
-    # runSimulation(500, 500)
+    runSimulation(500, 500)
     # drawGrid()
-    test.tes()
+    
