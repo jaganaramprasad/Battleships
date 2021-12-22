@@ -250,8 +250,8 @@ def clickUserBoard(data, row, col):
     r=data["userboard"]
     if [row,col] in r or data["userships"]==5:
         return
-    data["temporyship"].append([row,col])
-    if len(data["temporyship"])==3:
+    data["temporyships"].append([row,col])
+    if len(data["temporyships"])==3:
         placeShip(data)
     if data["userships"]==5:
         print("You can start the game")
