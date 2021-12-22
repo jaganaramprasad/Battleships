@@ -230,6 +230,13 @@ Parameters: dict mapping strs to values
 Returns: None
 '''
 def placeShip(data):
+    g=data["userboard"]
+    if shipIsValid(g, data["temporyships"])==True:
+        for i in data["temporyships"]:
+            g[i[0]][i[1]]=SHIP_UNCLICKED
+    else:
+        print("Ship is not Valid")
+    data["temporyships"]=[]
     return
 
 
@@ -348,4 +355,4 @@ if __name__ == "__main__":
     ## Finally, run the simulation to test it manually ##
     # runSimulation(500, 500)
     # drawGrid()
-    test.testShipIsValid()
+    test.tes()
