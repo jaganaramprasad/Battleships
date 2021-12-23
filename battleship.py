@@ -148,10 +148,17 @@ def drawGrid(data, canvas, grid, showShips):
     for row in range(data["rows"]):
          for cols in range(data["cols"]):
             if grid[row][cols]==SHIP_UNCLICKED:
-                canvas.create_rectangle(cols*data["celsize"],row*data["celsize"],(cols+1)*data["celsize"], (row+1)*data["celsize"], fill="yellow")
-                
+                if showShips==True:
+                    canvas.create_rectangle(cols*data["celsize"],row*data["celsize"],(cols+1)*data["celsize"], (row+1)*data["celsize"], fill="yellow")
+                else:
+                    canvas.create_rectangle(cols*data["celsize"],row*data["celsize"],(cols+1)*data["celsize"], (row+1)*data["celsize"], fill="blue")
+            elif grid[row][cols]==SHIP_CLICKED:
+                canvas.create_rectangle(cols*data["celsize"],row*data["celsize"],(cols+1)*data["celsize"], (row+1)*data["celsize"], fill="red")
+            elif grid[row][cols]==EMPTY_CLICKED:
+                canvas.create_rectangle(cols*data["celsize"],row*data["celsize"],(cols+1)*data["celsize"], (row+1)*data["celsize"], fill="white")
             else:
                 canvas.create_rectangle(cols*data["celsize"],row*data["celsize"],(cols+1)*data["celsize"], (row+1)*data["celsize"], fill="blue")
+            
                 
     return 
 
@@ -383,6 +390,6 @@ def runSimulation(w, h):
 if __name__ == "__main__":
 
     ## Finally, run the simulation to test it manually ##
-    # runSimulation(500, 500)
+    runSimulation(500, 500)
     # drawGrid()
-    test.testUpdateBoard()
+    # test.testUpdateBoard()
