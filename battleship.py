@@ -4,6 +4,7 @@ Name:
 Roll No:
 """
 
+from math import trunc
 import battleship_tests as test
 
 project = "Battleship" # don't edit this
@@ -35,6 +36,7 @@ def makeModel(data):
     data["numberofships"]=5 
     data["temporyships"]=[]
     data["userships"]=0
+    data["winner"]=None
     return data
 
 
@@ -286,6 +288,9 @@ def updateBoard(data, board, row, col, player):
     else:
         board[row][col]==EMPTY_UNCLICKED
         board[row][col]=EMPTY_CLICKED
+    if isGameOver(board)==True:
+        data["winner"]=player
+
 
     return
 
@@ -304,6 +309,7 @@ def runGameTurn(data, row, col):
         updateBoard(data, r, row, col, "user")
     row,col=getComputerGuess(u)
     updateBoard(data, u, row, col, "comp")
+
 
     return
 
@@ -329,7 +335,11 @@ Parameters: 2D list of ints
 Returns: bool
 '''
 def isGameOver(board):
-    return
+    for i in range (len(board)):
+        for j in range (len(board)):
+            if board[i][j]==SHIP_UNCLICKED:
+             return False
+    return True
 
 
 '''
@@ -398,6 +408,6 @@ def runSimulation(w, h):
 if __name__ == "__main__":
 
     ## Finally, run the simulation to test it manually ##
-    runSimulation(500, 500)
+    # runSimulation(500, 500)
     # drawGrid()
-    test.testGetComputerGuess()
+    test.testIsGameOver()
