@@ -70,6 +70,8 @@ def mousePressed(data, event, board):
     row,col=getClickedCell(data, event)
     if board=="user":
         clickUserBoard(data, row, col)
+    if board=="comp":
+        runGameTurn(data,row,col)
 
     pass
 
@@ -287,6 +289,13 @@ Parameters: dict mapping strs to values ; int ; int
 Returns: None
 '''
 def runGameTurn(data, row, col):
+    r=data["computerboard"]
+   
+    if r[row][col]== SHIP_CLICKED or  r[row][col]== EMPTY_CLICKED:
+        return
+    else:
+        updateBoard(data, r, row, col, "user")
+    
     return
 
 
