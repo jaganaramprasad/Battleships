@@ -37,6 +37,8 @@ def makeModel(data):
     data["temporyships"]=[]
     data["userships"]=0
     data["winner"]=None
+    data["max turns"]=50
+    data["no of turns"]=0
     return data
 
 
@@ -268,7 +270,7 @@ Returns: None
 '''
 def clickUserBoard(data, row, col):
     r=data["userboard"]
-    if [row,col] in r or data["userships"]==5:
+    if r[row][col]==SHIP_UNCLICKED or data["userships"]==5:
         return
     data["temporyships"].append([row,col])
     if len(data["temporyships"])==3:
@@ -312,7 +314,9 @@ def runGameTurn(data, row, col):
         updateBoard(data, r, row, col, "user")
     row,col=getComputerGuess(u)
     updateBoard(data, u, row, col, "comp")
-
+    data["no of turns"]+=1
+    if data["no of turns"]==data["max turns"]:
+        data["winner"]="draw"
 
     return
 
@@ -355,7 +359,8 @@ def drawGameOver(data, canvas):
         canvas.create_text(300, 50, text="you won the game", fill="black", font=('Helvetica 15 bold'))
     elif data["winner"]=="comp":
         canvas.create_text(300, 50, text="you lose the game", fill="black", font=('Helvetica 15 bold'))
-
+    elif data["winner"]=="draw":
+        canvas.create_text(200, 200, text="Out of moves and reached Draw", font=('Arial',18,'bold italic'),anchor="center")
     return
 
 
@@ -418,4 +423,4 @@ if __name__ == "__main__":
     ## Finally, run the simulation to test it manually ##
     runSimulation(500, 500)
     # drawGrid()
-    test.testDrawGameOver()
+    # test.testDrawGameOver()
