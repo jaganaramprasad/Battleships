@@ -70,6 +70,8 @@ Parameters: dict mapping strs to values ; mouse event object ; 2D list of ints
 Returns: None
 '''
 def mousePressed(data, event, board):
+    if data["winner"]!=None:
+        return None
     row,col=getClickedCell(data, event)
     if board=="user":
         clickUserBoard(data, row, col)
